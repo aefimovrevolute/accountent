@@ -1,0 +1,50 @@
+Configuration:
+  status: warn
+
+  Properties:
+    Property:
+      name: logPath
+      value: C:\apps\logs
+  Appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: '%d{dd-MMM-yyyy, HH:mm:ss.SSS} [%t] %-5p %c - %m%n'
+    RollingFile:
+      -
+        name: File
+        fileName: ${logPath}\gis_jkh_charge_extractor.log
+        filePattern: ${logPath}\gis_jkh_charge_extractor_%d{yy-MM-dd}.log.gz
+        PatternLayout:
+          Pattern: '%d{dd-MMM-yyyy, HH:mm:ss.SSS} [%t] %-5p %c - %m%n'
+        Filters:
+          ThresholdFilter:
+            level: debug
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+      -
+        name: PerspectiveFile
+        fileName: ${logPath}\gis_jkh_charge_extractor_app.log
+        filePattern: ${logPath}\gis_jkh_charge_extractor_%d{yy-MM-dd}.log.gz
+        PatternLayout:
+          Pattern: '%d{dd-MMM-yyyy, HH:mm:ss.SSS} [%t] %-5p %c - %m%n'
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+  Loggers:
+    Root:
+      level: debug
+      AppenderRef:
+        ref: File
+    Logger:
+      -
+        name: org.notifierapp
+        level: debug
+        AppenderRef:
+          ref: PerspectiveFile
+      -
+        name: io.netty
+        level: debug
+        AppenderRef:
+          ref: File
