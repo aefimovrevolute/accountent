@@ -1,6 +1,6 @@
 package org.aefimov.accountant.service;
 
-import org.aefimov.accountant.bean.Transaction;
+import org.aefimov.accountant.dao.entity.Transaction;
 import org.aefimov.accountant.dao.AccountDao;
 import org.aefimov.accountant.dao.TransactionDao;
 import org.aefimov.accountant.db.ConnectionOpts;

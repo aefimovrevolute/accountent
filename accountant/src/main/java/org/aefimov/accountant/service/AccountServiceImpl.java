@@ -1,6 +1,6 @@
 package org.aefimov.accountant.service;
 
-import org.aefimov.accountant.bean.Account;
+import org.aefimov.accountant.dao.entity.Account;
 import org.aefimov.accountant.dao.AccountDao;
 import org.aefimov.accountant.db.ConnectionOpts;
 import org.slf4j.Logger;

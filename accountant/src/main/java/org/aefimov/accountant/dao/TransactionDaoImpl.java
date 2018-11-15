@@ -1,6 +1,6 @@
 package org.aefimov.accountant.dao;
 
-import org.aefimov.accountant.bean.Transaction;
+import org.aefimov.accountant.dao.entity.Transaction;
 
 import javax.inject.Singleton;
 import java.sql.Connection;

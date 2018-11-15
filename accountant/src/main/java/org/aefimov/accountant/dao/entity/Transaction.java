@@ -1,4 +1,4 @@
-package org.aefimov.accountant.bean;
+package org.aefimov.accountant.dao.entity;
 
 public class Transaction {
 

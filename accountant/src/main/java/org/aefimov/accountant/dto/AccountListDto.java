@@ -1,18 +1,16 @@
 package org.aefimov.accountant.dto;
 
-import org.aefimov.accountant.bean.Account;
-
 import java.util.List;
 
 public class AccountListDto {
 
-    private List<Account> accounts;
+    private List<AccountDto> accounts;
 
-    public List<Account> getAccounts() {
+    public List<AccountDto> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<Account> accounts) {
+    public void setAccounts(List<AccountDto> accounts) {
         this.accounts = accounts;
     }
 }

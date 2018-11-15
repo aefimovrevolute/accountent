@@ -16,18 +16,34 @@ import javax.inject.Singleton;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The handler to retrieve the transactions info from the storage.
+ */
 @Singleton
 public class ListTransactionsHandler implements RequestHandler {
 
     private final AppObjecMapper mapper;
     private final TransactionService transactionService;
 
+    /**
+     * Default constructor.
+     *
+     * @param mapper             dependency injection type of {@link AppObjecMapper}.
+     * @param transactionService dependency injection type of {@link TransactionService}.
+     */
     @Inject
     public ListTransactionsHandler(AppObjecMapper mapper, TransactionService transactionService) {
         this.mapper = mapper;
         this.transactionService = transactionService;
     }
 
+    /**
+     * Retrieves the all transactions from the storage and make
+     * the http response with them.
+     *
+     * @param request the request for handling.
+     * @return prepared response;
+     */
     @Override
     public FullHttpResponse handle(Request request) {
         try {
@@ -42,7 +58,7 @@ public class ListTransactionsHandler implements RequestHandler {
                     json,
                     ContentType.APPLICATION_JSON
             );
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException("An error occurred when try to collect transactions for view.");
         }
     }

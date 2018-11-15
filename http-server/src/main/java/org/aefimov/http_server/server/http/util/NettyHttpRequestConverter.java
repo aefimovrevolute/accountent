@@ -12,8 +12,20 @@ import java.net.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The default implementation of {@link RawRequestConverter}
+ * to parse the raw netty {@link FullHttpRequest}.
+ */
 @Singleton
 public class NettyHttpRequestConverter implements RawRequestConverter {
+
+    /**
+     * Parse the netty request and convert parsed
+     * data to the more convenient {@link Request} type.
+     *
+     * @param httpRequest the raw netty http request.
+     * @return converted request;
+     */
     @Override
     public Request parse(FullHttpRequest httpRequest) {
         try {

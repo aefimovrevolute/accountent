@@ -1,6 +1,6 @@
 package org.aefimov.accountant.service;
 
-import org.aefimov.accountant.bean.Account;
+import org.aefimov.accountant.dao.entity.Account;
 
 import java.util.List;
 

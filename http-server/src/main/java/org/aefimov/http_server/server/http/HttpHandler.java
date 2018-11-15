@@ -18,6 +18,9 @@ import javax.inject.Inject;
 
 import static io.netty.buffer.Unpooled.copiedBuffer;
 
+/**
+ * The HTTP request dispatcher.
+ */
 public class HttpHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(HttpHandler.class);
 
@@ -30,6 +33,17 @@ public class HttpHandler extends ChannelInboundHandlerAdapter {
         this.requestMapper = requestMapper;
     }
 
+    /**
+     * Dispatches the HTTP request by path to the mapped {@link RequestHandler} instances
+     * which were registered in {@link RequestMapper}.
+     *
+     * @param ctx the channel context.
+     * @param msg the full http request.
+     * @throws Exception if an error occurs.
+     * @see RequestHandler
+     * @see RequestMapper
+     * @see RawRequestConverter
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof FullHttpRequest) {
@@ -41,7 +55,7 @@ public class HttpHandler extends ChannelInboundHandlerAdapter {
 
             FullHttpResponse httpResponse;
             if (handler == null) {
-                httpResponse = HttpResponder.createResponse(HttpResponseStatus.BAD_REQUEST);
+                httpResponse = HttpResponder.createResponse(HttpResponseStatus.NOT_FOUND);
             } else {
                 httpResponse = handler.handle(request);
             }

@@ -2,9 +2,10 @@ package org.aefimov.accountant.handler;
 
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
-import org.aefimov.accountant.bean.Account;
+import org.aefimov.accountant.dao.entity.Account;
 import org.aefimov.accountant.dto.AccountListDto;
 import org.aefimov.accountant.dto.TransferDto;
+import org.aefimov.accountant.dto.TransferResultDto;
 import org.aefimov.accountant.service.AccountService;
 import org.aefimov.accountant.service.TransferService;
 import org.aefimov.accountant.util.AppObjecMapper;
@@ -15,23 +16,18 @@ import org.aefimov.http_server.server.http.util.ContentType;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.io.IOException;
 import java.util.List;
 
 @Singleton
 public class TransferAmountHandler implements RequestHandler {
 
     private final AppObjecMapper mapper;
-
     private final TransferService transferService;
-    private final AccountService accountService;
 
     @Inject
-    public TransferAmountHandler(AppObjecMapper mapper, TransferService transferService,
-                                 AccountService accountService) {
+    public TransferAmountHandler(AppObjecMapper mapper, TransferService transferService) {
         this.mapper = mapper;
         this.transferService = transferService;
-        this.accountService = accountService;
     }
 
     @Override
@@ -40,16 +36,15 @@ public class TransferAmountHandler implements RequestHandler {
             String body = request.getBody();
             TransferDto transfer = mapper.instance().readerFor(TransferDto.class).readValue(body);
             boolean isTransfered = transferService.transfer(transfer);
-            List<Account> accounts = accountService.findAll();
+            TransferResultDto transferResultDto = new TransferResultDto();
+            transferResultDto.setSuccessful(isTransfered);
 
-            AccountListDto accountList = new AccountListDto();
-            accountList.setAccounts(accounts);
-
-            String json = mapper.instance().writerFor(AccountListDto.class).writeValueAsString(accountList);
+            String json = mapper.instance().writerFor(TransferResultDto.class)
+                    .writeValueAsString(transferResultDto);
 
             return HttpResponder.createResponse(
                     HttpResponseStatus.CREATED,
-                    "{}",
+                    json,
                     ContentType.APPLICATION_JSON
             );
         } catch (Exception e) {

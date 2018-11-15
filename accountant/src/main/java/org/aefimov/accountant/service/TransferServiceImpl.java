@@ -1,7 +1,7 @@
 package org.aefimov.accountant.service;
 
-import org.aefimov.accountant.bean.Account;
-import org.aefimov.accountant.bean.Transaction;
+import org.aefimov.accountant.dao.entity.Account;
+import org.aefimov.accountant.dao.entity.Transaction;
 import org.aefimov.accountant.dto.TransferDto;
 import org.aefimov.accountant.db.ConnectionOpts;
 import org.aefimov.accountant.dao.AccountDao;
@@ -18,6 +18,7 @@ import java.sql.SQLException;
 public class TransferServiceImpl implements TransferService {
 
     private static final Logger logger = LoggerFactory.getLogger(TransferServiceImpl.class);
+    private static final String SUCCESS_TRANSFER_RESULT_VALUE = "COMPLETED";
 
     private final ConnectionOpts connectionOpts;
     private final AccountDao accountDao;
@@ -42,7 +43,7 @@ public class TransferServiceImpl implements TransferService {
             Long amountToTransfer = transfer.getAmount();
             Long toAccBalance = toAcc.getBalance();
             Long fromAccBalance = fromAcc.getBalance();
-            if (fromAccBalance >= amountToTransfer) {
+            if (fromAccBalance >= amountToTransfer && !fromAcc.getAccNumber().equals(toAcc.getAccNumber())) {
 
                 toAcc.setBalance(toAccBalance + amountToTransfer);
                 fromAcc.setBalance(fromAccBalance - amountToTransfer);
@@ -53,7 +54,7 @@ public class TransferServiceImpl implements TransferService {
                 tr.setFromAccountId(fromAcc.getId());
                 tr.setToAccountId(toAcc.getId());
                 tr.setAmount(amountToTransfer);
-                tr.setStatus("COMPLETED");
+                tr.setStatus(SUCCESS_TRANSFER_RESULT_VALUE);
                 transactionDao.save(tr, connection);
                 connection.commit();
                 operationCompleted = true;
