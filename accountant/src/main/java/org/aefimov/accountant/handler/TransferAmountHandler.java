@@ -8,10 +8,10 @@ import org.aefimov.accountant.dto.TransferDto;
 import org.aefimov.accountant.service.AccountService;
 import org.aefimov.accountant.service.TransferService;
 import org.aefimov.accountant.util.AppObjecMapper;
-import org.aefimov.async_http.server.http.HttpResponder;
-import org.aefimov.async_http.server.http.request.Request;
-import org.aefimov.async_http.server.http.request.RequestHandler;
-import org.aefimov.async_http.server.http.util.ContentType;
+import org.aefimov.http_server.server.http.HttpResponder;
+import org.aefimov.http_server.server.http.request.Request;
+import org.aefimov.http_server.server.http.request.RequestHandler;
+import org.aefimov.http_server.server.http.util.ContentType;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

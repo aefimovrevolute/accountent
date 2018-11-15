@@ -6,10 +6,10 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import org.aefimov.accountant.bean.Account;
 import org.aefimov.accountant.service.AccountService;
 import org.aefimov.accountant.util.AppObjecMapper;
-import org.aefimov.async_http.server.http.HttpResponder;
-import org.aefimov.async_http.server.http.request.Request;
-import org.aefimov.async_http.server.http.request.RequestHandler;
-import org.aefimov.async_http.server.http.util.ContentType;
+import org.aefimov.http_server.server.http.HttpResponder;
+import org.aefimov.http_server.server.http.request.Request;
+import org.aefimov.http_server.server.http.request.RequestHandler;
+import org.aefimov.http_server.server.http.util.ContentType;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;

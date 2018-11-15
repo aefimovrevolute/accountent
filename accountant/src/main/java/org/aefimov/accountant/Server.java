@@ -6,8 +6,8 @@ import org.aefimov.accountant.db.DBInitializer;
 import org.aefimov.accountant.handler.AccountInfoHandler;
 import org.aefimov.accountant.handler.ListTransactionsHandler;
 import org.aefimov.accountant.handler.TransferAmountHandler;
-import org.aefimov.async_http.server.ServerBuilder;
-import org.aefimov.async_http.server.http.request.Key;
+import org.aefimov.http_server.server.ServerBuilder;
+import org.aefimov.http_server.server.http.request.Key;
 
 public class Server {
 
