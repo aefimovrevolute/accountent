@@ -47,7 +47,7 @@ BODY
 Empty  
 
 ### How to start application?
-First of all you should clone source code from the Github '@clone comand'
+First of all you should clone source code from the Github `https://github.com/aefimovrevolute/accountent`
 Next, enter into the directory with source code and execute command ```mvn clean compile assembly:single``` to make the jar with dependencies.
 Next, enter into the ```accountant``` -> ```target``` and run ```java -jar accountant-1.0.0-jar-with-dependencies.jar``` or ```nohup java -jar java -jar accountant-1.0.0-jar-with-dependencies.jar &``` if you want to release terminal(console).
 

@@ -6,6 +6,8 @@ import org.aefimov.accountant.dto.TransferDto;
 import org.aefimov.accountant.db.ConnectionOpts;
 import org.aefimov.accountant.dao.AccountDao;
 import org.aefimov.accountant.dao.TransactionDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,6 +16,8 @@ import java.sql.SQLException;
 
 @Singleton
 public class TransferServiceImpl implements TransferService {
+
+    private static final Logger logger = LoggerFactory.getLogger(TransferServiceImpl.class);
 
     private final ConnectionOpts connectionOpts;
     private final AccountDao accountDao;
@@ -58,17 +62,17 @@ public class TransferServiceImpl implements TransferService {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            logger.error("An error occurred when try to transfer money. The transfer object is [{}]", transfer, e);
             try {
                 connection.rollback();
             } catch (SQLException e1) {
-                System.out.println(e1.getMessage());
+                logger.error(e1.getMessage(), e1);
             }
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                logger.error("An error occurred when try to close DB connection.", e);
             }
         }
         return operationCompleted;

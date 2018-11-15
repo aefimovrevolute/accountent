@@ -43,7 +43,7 @@ public class ListTransactionsHandler implements RequestHandler {
                     ContentType.APPLICATION_JSON
             );
         } catch (IOException e) {
-            throw new RuntimeException("");
+            throw new RuntimeException("An error occurred when try to collect transactions for view.");
         }
     }
 }

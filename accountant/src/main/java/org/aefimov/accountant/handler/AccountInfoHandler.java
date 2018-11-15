@@ -19,6 +19,7 @@ import java.util.Map;
 @Singleton
 public class AccountInfoHandler implements RequestHandler {
 
+    private static final String ACCOUNT_NUMBER_ATTRIBUTE_NAME = "number";
     private final AppObjecMapper mapper;
     private final AccountService accountService;
 
@@ -35,7 +36,7 @@ public class AccountInfoHandler implements RequestHandler {
             if (parameters == null)
                 return makeNotFoundResponse();
 
-            String accNumber = parameters.get("number");
+            String accNumber = parameters.get(ACCOUNT_NUMBER_ATTRIBUTE_NAME);
             if (StringUtils.isBlank(accNumber))
                 return makeNotFoundResponse();
 
@@ -51,8 +52,8 @@ public class AccountInfoHandler implements RequestHandler {
                     json,
                     ContentType.APPLICATION_JSON
             );
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred when try to find the account info.", e);
         }
     }
 

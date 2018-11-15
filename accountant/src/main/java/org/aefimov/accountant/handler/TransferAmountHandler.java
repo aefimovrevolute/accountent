@@ -52,8 +52,8 @@ public class TransferAmountHandler implements RequestHandler {
                     "{}",
                     ContentType.APPLICATION_JSON
             );
-        } catch (IOException e) {
-            throw new RuntimeException("");
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred when try to transfer amount.", e);
         }
     }
 }

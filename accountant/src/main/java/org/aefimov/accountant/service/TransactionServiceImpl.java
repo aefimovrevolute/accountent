@@ -5,6 +5,8 @@ import org.aefimov.accountant.dao.AccountDao;
 import org.aefimov.accountant.dao.TransactionDao;
 import org.aefimov.accountant.db.ConnectionOpts;
 import org.aefimov.accountant.dto.TransactionDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Singleton
 public class TransactionServiceImpl implements TransactionService {
+
+    private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
 
     private final ConnectionOpts connectionOpts;
     private final TransactionDao transactionDao;
@@ -46,17 +50,17 @@ public class TransactionServiceImpl implements TransactionService {
 
             return result;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            logger.error("An error occurred when try to load transactions.", e);
             try {
                 connection.rollback();
             } catch (SQLException e1) {
-                System.out.println(e1.getMessage());
+                logger.error(e1.getMessage(), e1);
             }
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                logger.error("An error occurred when try to close DB connection.", e);
             }
         }
         return Collections.emptyList();

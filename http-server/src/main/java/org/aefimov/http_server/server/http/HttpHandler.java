@@ -20,13 +20,6 @@ import static io.netty.buffer.Unpooled.copiedBuffer;
 
 public class HttpHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(HttpHandler.class);
-//
-//    private final HttpResponder httpResponder;
-//
-//    @Inject
-//    public HttpHandler(HttpResponder httpResponder) {
-//        this.httpResponder = httpResponder;
-//    }
 
     private final RawRequestConverter rawRequestConverter;
     private final RequestMapper requestMapper;
